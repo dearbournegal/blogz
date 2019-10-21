@@ -1,21 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
- 
+
+{% if not mypost%}
+{% if blogs|length == 0%}
+<p>No posts yet</p>
+{%else%}
 <ul>
-        {%for title in titles%}
+    {%for blog in blogs%}
         <li>
-            <a href='/blog?id={{id}}'>{{title.title}}</a>
+            <a href='/blog?id={{blog.id}}'>{{blog.title}}</a>
+            <p>{{blog.body}}</p>
         </li>
         
         {%endfor%}
     </ul>
+    <hr />
+{%endif%}
+{%else%}
+<h2>{{mypost.title}}</h2>
+<p>{{mypost.body}}</p>
+{%endif%}
 
-
-      <!-- <h1>Build Your Blog!</h1>
+    <!-- <h1>Build Your Blog!</h1>
     <form method='post'>
         <label>
-            Title for New Blog: -->
+            Title for New Blog:
+            {{b_id}} -->
             <!-- <input type="text" name='post_titles' /> -->
              <!-- <input type="text" name='blog_title' />
             

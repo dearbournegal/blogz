@@ -21,50 +21,52 @@ class Blog(db.Model):
 
 @app.route('/newpost', methods=['POST', 'GET'])
 def index():
-
     if request.method == 'POST':
-        title = request.form['title']
-        body = request.form['body']
-        #new_title = Blog(title_name)
-        #new_body = Blog(body_name)
-        
-        new_unit = Blog(title, body)    
-
-        # db.session.add(new_title)
-        # db.session.add(new_body)
-        db.session.add(new_unit)
-
-        db.session.commit()
-
-    tasks = Blog.query.all()
-    # body= Blog.query.all()
-    return render_template('newpost.html',title="Build a blog!", 
-        tasks=tasks)#, body_tasks=body_tasks)
-
-
-@app.route('/blog')#, methods=['POST'])
-def delete_task():
     #if request.method == 'POST':
     #     title = request.form['title']
     #     titles.append(title)
-    # if len(title) == 0:
-    #     return redirect('/newpost', title_error = title)
-    # if request.method == 'POST'
-    #     title = request.form['title']
-    # id = Blog.query.all()
+        title = request.form['title']
+        body = request.form['body']
+        title_error =""
+        body_error = ""
+        if len(title) == 0:
+            title_error = "You need a title"
+            #return redirect('/newpost', title_error = title)
+        if len(body) == 0:
+            body_error = "You need content"
+
+        if title_error or body_error:
+            return render_template('newpost.html',title="Build a blog!", 
+            title_error = title_error, body_error = body_error)
+
+        new_unit = Blog(title, body)    
+
+        db.session.add(new_unit)
+        db.session.commit()
+
+        return redirect('/blog?id=' + str(new_unit.id))
+    return render_template('/newpost.html')
+
+@app.route('/blog')#, methods=['POST'])
+def show():
+    the_id = str(request.args.get('id'))
+    the_post = Blog.query.get(the_id)
+
+
+
     
     #bodies = Blog.query.all()
     #    print(titles)
-
+    #id = Blog.query.order_by(desc(Blog.id))
     #titles = Blog.query.all()
     #body = bodies = Blog.query.all()
     #for title in titles:
     #    print(title)
     #    return title
     #body = request.args.get['body']  #from html assign to python variable
-    titles = Blog.query.all()
-    return render_template('/blog.html',titles = titles)
-
+    blogs = Blog.query.all()
+    # return render_template('/blog.html?id=',id,titles = titles)
+    return render_template('blog.html',blogs = blogs, mypost = the_post)
 
 if __name__ == '__main__':
     app.run()
