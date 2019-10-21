@@ -1,0 +1,98 @@
+from flask import Flask, request, redirect, render_template
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config['DEBUG'] = True
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:root@localhost:8889/build-a-blog'
+app.config['SQLALCHEMY_ECHO'] = True
+db = SQLAlchemy(app)
+
+
+class Blog(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120))
+    body = db.Column(db.Text) # to accept more than the 255 characters for the blog
+#Whatever we need from the user
+    def __init__(self, title, body):
+        self.title = title
+        self.body = body
+
+#titles = []
+
+@app.route('/blog')
+def hello():
+    #if request.method == 'POST':
+    #     title = request.form['title']
+    #     titles.append(title)
+    # if len(title) == 0:
+    #     return redirect('/newpost', title_error = title)
+    # if request.method == 'POST'
+    #     title = request.form['title']
+    # id = Blog.query.all()
+        titles = Blog.query.all()
+        bodies = Blog.query.all()
+        print(titles)
+
+    #titles = Blog.query.all()
+    #body = bodies = Blog.query.all()
+    #for title in titles:
+    #    print(title)
+    #    return title
+    #body = request.args.get['body']  #from html assign to python variable
+
+        return render_template('/blog.html',titles = titles)
+
+# @app.route('/delete-task', methods=['POST'])
+# def delete_task():
+
+#     task_id = int(request.form['task-id'])
+#     task = Task.query.get(task_id)
+#     task.body = True
+#     db.session.add(task)
+#     db.session.commit()
+
+#     return redirect('/')
+
+
+
+@app.route('/newpost', methods=['POST', 'GET'])
+def index():
+    title_error = ""
+    body_error = ""
+    if request.method == 'POST':
+        post_titles = request.form['post_titles']
+        post_body = request.form['post_body']
+        if len(post_titles) == 0:
+            title_error = "you need a title"
+            post_titles = ""
+        if len(post_body) == 0:
+            post_body = ""
+            body_error = "you need a body"
+        return render_template('/blog.html', title_error = title_error, body_error = body_error)
+
+
+#        if len(title_name) == 0:
+#            title_error = "Fill a title"
+#        if len(title_name) == 0:
+ #           body_error = "Fill something in blog"
+        new_unit = Blog(post_titles,post_body)
+        db.session.add(new_unit)
+        db.session.commit()
+        print(new_unit)
+        id = str(post.query.count())
+        post = Blog.query.filter_by(id=id).all()
+
+ #   if not title_error and not body_error:
+ #       return redirect('/blog')
+
+        return render_template('/blog.html',title="Build A Blog",
+            post_titles=post_titles,post_body=post_body)
+
+    return render_template('/newpost.html')
+
+
+
+
+if __name__ == '__main__':
+    app.run()

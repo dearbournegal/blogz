@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+ 
+<ul>
+        {%for title in titles%}
+        <li>
+            <a href='/blog?id={{id}}'>{{title.title}}</a>
+        </li>
+        
+        {%endfor%}
+    </ul>
+
+
+      <!-- <h1>Build Your Blog!</h1>
+    <form method='post'>
+        <label>
+            Title for New Blog: -->
+            <!-- <input type="text" name='post_titles' /> -->
+             <!-- <input type="text" name='blog_title' />
+            
+        </label>
+        <span class="error">{{title_error}}</span>
+        <br />
+        <br />
+        <br />
+        <div>
+        <label>
+            <div>Your New Blog:</div>   -->
+            <!-- <textarea name='post_body' type = "text" rows="10" cols="30">{{post_body}}</textarea> -->
+            <!-- <textarea name='blog_body' type = "text" rows="10" cols="30">{{post_body}}</textarea>
+        </label>
+    </div><span class="error">{{body_error}}</span> 
+    <br />
+    <br />
+    <br />
+    <div>
+    <input type="submit" value='Add Entry' />
+    </div>    
+    </form> -->
+
+    <!-- <hr /> -->
+
+{% endblock %}

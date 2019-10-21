@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+   
+            .error {color:red;
+                    font-style: italic;
+                    }
+        </style>
+
+        <title>Build A Blog</title>
+ 
+    </head>
+<body>
+        <h5>
+                <a href="/blog">Main blog Page</a>
+                <a href="/newpost">Add a Blog Entry</a>
+        </h5>
+
+     <h1>Build Your Blog!</h1>
+    <form method='post'>
+        <label>
+            Title for New Blog:
+            <!-- <input type="text" name='post_titles' /> -->
+             <input type="text" name='title' />
+            
+        </label>
+        <span class="error"></span>
+        <br />
+        <br />
+        <br />
+        <div>
+        <label>
+            <div>Your New Blog:</div>  
+            <textarea name='body' type = "text" rows="10" cols="30"></textarea>
+            <!-- <textarea name='body' type = "text" rows="10" cols="30"></textarea> -->
+        </label>
+    </div><span class="error"></span> 
+    <br />
+    <br />
+    <br />
+    <div>
+    <input type="submit" value='Add Entry' />
+    </div>    
+    </form>
+
+    <hr />
+
+
+
+    <div>
+</body>
+</html>
