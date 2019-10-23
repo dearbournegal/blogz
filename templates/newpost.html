@@ -1,53 +1,44 @@
-<!doctype html>
-<html>
-    <head>
-        <style>
-   
-            .error {color:red;
-                    font-style: italic;
-                    }
-        </style>
+{% extends "base.html" %}
+<style>
+            .error {
+            color: red;
+        }
+</style>
+{% block content %}
 
-        <title>Build A Blog</title>
- 
-    </head>
-<body>
-        <h5>
-                <a href="/blog">Main blog Page</a>
-                <a href="/newpost">Add a Blog Entry</a>
-        </h5>
+<a href='/index' style='margin-right: 10px;'>Home Page</a>
+<!-- <a href='/blogs' style='margin-right: 10px;'>Main Blog Page</a> -->
+<a href='/newpost' style='margin-right: 10px;'>Create New Entry</a>
+<!-- <a href='/login' style='margin-right: 10px;'>Login</a> -->
+<!-- <a href='/signup'>Sign-Up</a> -->
 
-     <h1>Build Your Blog!</h1>
-    <form method='post'>
-        <label>
-            Title for New Blog:
-            <!-- <input type="text" name='post_titles' /> -->
-             <input type="text" name='title' />
-            
-        </label>
-        <span class="error">{{title_error}}</span>
-        <br />
-        <br />
-        <br />
-        <div>
-        <label>
-            <div>Your New Blog:</div>  
-            <textarea name='body' type = "text" rows="10" cols="30"></textarea>
-            <!-- <textarea name='body' type = "text" rows="10" cols="30"></textarea> -->
-        </label>
-    </div><span class="error">{{body_error}}</span> 
-    <br />
-    <br />
-    <br />
-    <div>
+<br><br>
+
+<h1 style='text-align: center; color: blue;'>Add Your New Post</h1>
+
+<hr />
+
+<form action="/newpost" method='POST'>
+    <label>
+        New Entry:
+        <br><br>
+        <!-- <input type="text" name='blog' placeholder="Enter Blog Title" value='{{blog_title}}' /> -->
+        <input type="text" name='blog' value='{{blog_title}}' />
+    </label>
+
+    <span class="error">{{title_error}}</span>
+    <span class="error">{{body_error}}</span>
+    <br><br>
+    <label>Content:
+            <br><br> 
+        <textarea rows="20" cols="70" name="blogbody"> {{blog_body}}</textarea>
+        <!-- <textarea rows="20" cols="70" name="blogbody" placeholder="Enter blog/review here:">{{blog_body}}</textarea> -->
+    </label>
+
+    
+    <br><br>
+
     <input type="submit" value='Add Entry' />
-    </div>    
-    </form>
+</form>
 
-    <hr />
-
-
-
-    <div>
-</body>
-</html>
+{% endblock %}

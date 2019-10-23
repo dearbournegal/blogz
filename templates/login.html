@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+<style>
+#right{
+    text-align: right;
+}
+   .error {color:red;
+           font-style: italic;
+           }
+
+</style>
+{% block content %}
+<div id=right>
+<a href='/index' style='margin-right: 10px;'>Home</a>
+<!-- <a href='/blogs' style='margin-right: 10px;'>Main Blog Page</a> -->
+<a href='/signup'>SignUp</a>
+</div>
+<br>
+<br>
+
+<h1 style='text-align: center; color: blue;'>Login</h1>
+<p>Don't have an account, create a <a href="/signup">new user</a> account here!</p>
+
+<form action="/login" method="POST">
+    <table>
+        <tr>
+            <td><label for="username">User Name</label></td>
+            <td>
+                <input name="username" type="username" value="{{username }}"><span class="error">{{username_error}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="password">Password</label></td>
+            <td>
+                <input name="password" type="password"><span class="error">{{password_error}}</span>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Login">
+</form>
+
+{% endblock %}
