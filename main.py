@@ -56,22 +56,24 @@ class User(db.Model):
         self.password = password
 
 
-# Login and SignUp Section - Enable visitors to the web app to create an account and login
-# The Login Page (Red)
+# Login 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        username_error = ""
+        password_error=""
         user = User.query.filter_by(username=username).first()
+        
         if len(username) == 0:
             username_error = "You need a username"
         if len(password) == 0:
             password_error = "You need a password"
         
         if username_error or password_error:
-            return render_template('login.html',
-            title_error = title_error, username_error=username_error,password_error=password_error)
+            return render_template('login.html', username_error=username_error,
+            password_error=password_error)
 
         if user and user.password == password:
             session['username'] = username
@@ -95,12 +97,15 @@ def signup():
 
         if len(username) == 0:
             username_error = "You need a username"
+            username = ""
         if len(password) == 0:
             password_error = "You need a password"
+            password = ""
         
         if username_error or password_error:
-            return render_template('signup.html',
-            title_error = title_error,password_error=password_error)
+            return render_template('signup.html', username = username,
+            title_error = title_error,password_error=password_error,
+            username_error=username_error)
 
 
         existing_user = User.query.filter_by(username=username).first()
@@ -163,9 +168,9 @@ def blogs_display():
     blogs = Blog.query.filter_by(owner=owner).all()
     myblog = Blog.query.get(blog_id)
 
-    user = session['username']
+    #user = session['username']
     #user = User.query.filter_by(id=user_id).first()
-    return render_template('blogs.html', blogs=blogs, myblog=myblog,user=user)
+    return render_template('blogs.html', blogs=blogs, myblog=myblog)#,user=user)
 
 # New blogs (newpost.html)
 @app.route('/newpost', methods=['POST', 'GET'])
